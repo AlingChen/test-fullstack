@@ -1,0 +1,53 @@
+class Dropdown extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            showOverlay: false,
+            direction: 'bottom'
+        }
+        this.handleClick = this.handleClick.bind(this)
+    }
+
+    handleClick () {
+        //:TODO
+        // 判断 menu 在窗口的位置 确定Dropdown list 要显示的位置
+        // 通过 set direction 来确定具体定位
+        // 抱歉时间有限判断窗口显示的位置没实现
+        this.setState(({showOverlay}) => {
+            return {
+                showOverlay: !showOverlay
+            }
+        })
+    }
+
+    render () {
+        const { menuName, children } = this.props
+        const { showOverlay, direction } = this.state
+        return <div>
+            <div onClick={this.handleClick}>{menuName}</div>
+            {
+                showOverlay ? <div className={direction} >{children}</div> : null
+            }
+        </div>
+    }
+}
+
+// 使用方法：
+// menuName 为弹出菜单名字
+// Dropdown 的子元素为需要弹出的内容
+
+class App extends Component {
+    render() {
+        return (
+            <div className="App">
+                <Dropdown menuName={'hello'}>
+                    <ul>
+                        <li>3</li>
+                        <li>3</li>
+                        <li>3</li>
+                    </ul>
+                </Dropdown>
+            </div>
+        );
+    }
+}
